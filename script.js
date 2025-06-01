@@ -7,7 +7,7 @@ const weight = document.querySelector('#weight');
 const height = document.querySelector('#height');
 const types = document.querySelector('#types');
 const output = document.querySelector('#top');
-
+const container = document.querySelector('#special');
 // Fetch names of all creatures
 const fetchAllCreatures = async ()=>{
     const url='https://rpg-creature-api.freecodecamp.rocks/api/creatures'
@@ -42,12 +42,12 @@ const showDetails = (data)=>{
     };
     for (let i=0; i <data.types.length;i++) {
         let span = document.createElement('span');
-        span.classList.add('type');
-        let typeName = data.types[i].name.toUpperCase()
-        span.textContent =typeName;
+        
+        let typeName = data.types[i].name
+        span.classList.add('type', typeName);
+        span.textContent =typeName.toUpperCase();
         types.appendChild(span)
-    };
-    let container = document.createElement('div');
+    };    
     let specialName = document.createElement('h3');
     let description = document.createElement('p');
     specialName.textContent = data.special.name;
@@ -58,6 +58,7 @@ const showDetails = (data)=>{
 
 form.addEventListener('submit', (e)=>{
 types.innerHTML='';
+container.innerHTML='';
 e.preventDefault()
 let val = searchInput.value
 fetchData(val)
